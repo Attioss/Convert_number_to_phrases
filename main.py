@@ -28,12 +28,16 @@ for num in list:
     hundreds = num//100
     if hundreds > 0:
         under100 = num-(num//100)*100
+        if under100 > 0:
 # the following lines deciede the number is between 10-20 or greater than 20
-        if under100 < 20:
-            res = (pairs[under100])
-            res_list.append(res)
+            if under100 % 10 != 0:
+                res = (pairs[hundreds] + " " + "hundred and " + pairs[under100 - under100 % 10] + "-" + pairs[under100 % 10])
+                res_list.append(res)
+            else:
+                res = (pairs[hundreds] + " " + "hundred and " + pairs[under100])
+                res_list.append(res)
         else:
-            res = (pairs[hundreds] + " " + "hundred and " + pairs[under100-under100%10] + "-" + pairs[under100%10])
+            res = (pairs[hundreds] + " " + "hundred")
             res_list.append(res)
 # the following lines contain debugging to avoid errors if numbers are less than 100
     else:
@@ -42,31 +46,38 @@ for num in list:
             res = (pairs[under100])
             res_list.append(res)
         else:
-            res = (pairs[under100 - under100 % 10] + "-" + pairs[under100 % 10])
-            res_list.append(res)
+            if under100 % 10 != 0:
+                res = (pairs[under100 - under100 % 10] + "-" + pairs[under100 % 10])
+                res_list.append(res)
+            else:
+                print(under100)
+                res = (pairs[under100])
+                res_list.append(res)
 print(res_list)
 
 # debugging: program did not accept value under 1 million
 
 if n > 999999:
     # this is debugging to avoid the result something + zero
-    if int(list[1]) > 0 and int(list[2]) > 0:
-        print(res_list[0], "million", res_list[1], "thousand",res_list[2])
+    if int(list[1]) > 0 and 100 > int(list[2]) > 0:
+        print(res_list[0], "million", res_list[1], "thousand", "and", res_list[2])
+    elif int(list[1]) > 0 and int(list[2]) > 99:
+        print(res_list[0], "million", res_list[1], "thousand", res_list[2])
     elif int(list[1]) > 0 and int(list[2]) == 0:
         print(res_list[0], "million", res_list[1], "thousand")
-    elif int(list[1]) == 0 and int(list[2]) > 0:
+    elif int(list[1]) == 0 and 100 > int(list[2]) > 0:
         print(res_list[0], "million", res_list[2])
+    elif int(list[1]) == 0 and int(list[2]) > 99:
+        print(res_list[0], "million", "and", res_list[2])
     else:
         print(res_list[0], "million")
 elif 999 < n < 1000000:
-    if int(list[1]) > 0:
+    if 100 > int(list[1]) > 0:
+        print(res_list[0], "thousand", "and", res_list[1])
+    elif int(list[1]) > 99:
         print(res_list[0], "thousand", res_list[1])
     else:
         print(res_list[0], "thousand")
 else:
     print(res_list[0])
 
-'''
-list = [int(d) for d in str(n)]
-print(list)
-'''

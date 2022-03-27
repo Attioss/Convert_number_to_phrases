@@ -55,6 +55,7 @@ for num in list:
                 res_list.append(res)
 print(res_list)
 
+
 # debugging: program did not accept value under 1 million
 
 if n > 999999:
